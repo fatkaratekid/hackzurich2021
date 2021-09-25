@@ -26,7 +26,7 @@ MonoBehaviour:
   m_MinSize: {x: 911, y: 442}
   m_MaxSize: {x: 22006, y: 10021}
   vertical: 0
-  controlID: 3961
+  controlID: 8115
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 442}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 3962
+  controlID: 8116
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -160,8 +160,8 @@ MonoBehaviour:
     y: 0
     width: 560
     height: 368
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 5}
   m_Panes:
   - {fileID: 5}
@@ -203,9 +203,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.000002861023, y: 3.815345, z: 83.20219}
+    m_Target: {x: 0.0022535324, y: -3.1778686, z: 59.889366}
     speed: 2
-    m_Value: {x: 0.000002861023, y: 3.815345, z: 83.20219}
+    m_Value: {x: 0.0022535324, y: -3.1778686, z: 59.889366}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -256,9 +256,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 47.590977
+    m_Target: 9.406492
     speed: 2
-    m_Value: 47.590977
+    m_Value: 9.406492
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -363,9 +363,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 4ad9ffffc4e6ffff54fbffff543c0000
+      m_SelectedIDs: 32a7ffff
+      m_LastClickedID: -22734
+      m_ExpandedIDs: bc9effff32a7ffff4ad9ffffc4e6ffff54fbffff543c000094400000c0400000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -453,21 +453,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Plugins
+    - Assets/Images
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Plugins
+  - Assets/Images
   m_LastFoldersGridSize: -1
   m_LastProjectPath: /Users/jiayaoyu/Documents/learning/HackZurich2021/hackzurich2021/HackZurich2021_unityFrontEnd
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 34400000
-    m_LastClickedID: 16436
+    m_SelectedIDs: a63c0000
+    m_LastClickedID: 15526
     m_ExpandedIDs: 00000000a23c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -521,9 +521,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 32a7ffff
+    m_LastClickedInstanceID: -22734
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -571,8 +571,8 @@ MonoBehaviour:
     y: 0
     width: 322
     height: 719
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}

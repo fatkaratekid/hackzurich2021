@@ -7,18 +7,19 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.IO;
-// using Newtonsoft.Json;
+using UnityEngine.UI;
 
 public class PlayerController: MonoBehaviour
 {
 #region Initialization
 
-	Thread receiveThread; //1
+    public GameObject DrumHandLeft;
+    public GameObject DrumHandRight;
+
+    Thread receiveThread; //1
 	UdpClient client; //2
 	int port; //3
     private Camera cam;
-
-    public GameObject HandLeft;
     private string receivedText;
     private string lastReceivedText;
 
@@ -86,10 +87,6 @@ public class PlayerController: MonoBehaviour
 	{
         if (receivedText != lastReceivedText)
         {
-            // HandLeft.transform.position = new Vector3(HandLeft.transform.position.x + 1f,
-            //                                         HandLeft.transform.position.y,
-            //                                         HandLeft.transform.position.z);
-            // print("x position" + HandLeft.transform.position.x);
             GetCoordinates(receivedText);
             MoveHands();
             lastReceivedText = receivedText;
@@ -100,7 +97,6 @@ public class PlayerController: MonoBehaviour
 
     private void GetCoordinates(string receivedText)
     {
-        // JObject coordinates = JObject.Parse(str);
         string[] coordinates = receivedText.Split(' ');
         // TODO: validate incoming data structure
         float left_hand_x = float.Parse(coordinates[1]);
@@ -111,18 +107,24 @@ public class PlayerController: MonoBehaviour
 
         bodyCoordinates.left_hand_x = Screen.width * left_hand_x;
         bodyCoordinates.left_hand_y = Screen.height * (1 - left_hand_y);
+        bodyCoordinates.right_hand_x = Screen.width * right_hand_x;
+        bodyCoordinates.right_hand_y = Screen.height * (1 - right_hand_y);
         print("converted x: " + bodyCoordinates.left_hand_x + "converted y: " + bodyCoordinates.left_hand_y);
 
     }
 
     private void MoveHands()
     {
-        HandLeft.transform.position = cam.ScreenToWorldPoint(
+        DrumHandLeft.transform.position = cam.ScreenToWorldPoint(
             new Vector3(bodyCoordinates.left_hand_x, 
                         bodyCoordinates.left_hand_y,
-                        cam.transform.position.z + 100)
+                        cam.transform.position.z + 80)
         );
-
+        DrumHandRight.transform.position = cam.ScreenToWorldPoint(
+            new Vector3(bodyCoordinates.right_hand_x,
+                        bodyCoordinates.right_hand_y,
+                        cam.transform.position.z + 80)
+        );
 
     }
 
