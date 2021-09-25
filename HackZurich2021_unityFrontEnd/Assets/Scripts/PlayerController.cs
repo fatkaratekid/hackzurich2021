@@ -16,6 +16,7 @@ public class PlayerController: MonoBehaviour
 	Thread receiveThread; //1
 	UdpClient client; //2
 	int port; //3
+    private Camera cam;
 
     public GameObject HandLeft;
     private string receivedText;
@@ -35,6 +36,7 @@ public class PlayerController: MonoBehaviour
         receivedText = "";
         lastReceivedText = "";
         bodyCoordinates = new BodyCoordinates();
+        cam = Camera.main;
     }
 
 	void Start () 
@@ -105,19 +107,23 @@ public class PlayerController: MonoBehaviour
         float left_hand_y = float.Parse(coordinates[3]);
         float right_hand_x = float.Parse(coordinates[5]);
         float right_hand_y = float.Parse(coordinates[7]);
-        print("raw left_hand_x: " + left_hand_x);
+        print("raw x: " + left_hand_x + "raw y: " + left_hand_y);
 
         bodyCoordinates.left_hand_x = Screen.width * left_hand_x;
-        bodyCoordinates.left_hand_y = Screen.height * left_hand_y;
-        print("converted left_hand_x: " +  bodyCoordinates.left_hand_x);
+        bodyCoordinates.left_hand_y = Screen.height * (1 - left_hand_y);
+        print("converted x: " + bodyCoordinates.left_hand_x + "converted y: " + bodyCoordinates.left_hand_y);
 
     }
 
     private void MoveHands()
     {
-        HandLeft.transform.position = new Vector3(bodyCoordinates.left_hand_x, 
-                                                BodyCoordinates.left_hand_y, 
-                                                HandLeft.transform.position.z);
+        HandLeft.transform.position = cam.ScreenToWorldPoint(
+            new Vector3(bodyCoordinates.left_hand_x, 
+                        bodyCoordinates.left_hand_y,
+                        cam.transform.position.z + 100)
+        );
+
+
     }
 
 #endregion
