@@ -48,6 +48,8 @@ with mp_hands.Hands(
 # For webcam input:
 cap = cv2.VideoCapture(0)
 finger_already_up = False
+
+
 with mp_hands.Hands(
         min_detection_confidence=0.5,
         min_tracking_confidence=0.5) as hands:

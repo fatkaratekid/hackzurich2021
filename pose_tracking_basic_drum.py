@@ -119,10 +119,10 @@ with mp_pose.Pose(
                 print(f'{count_kicks} right hand drum kick!')
                 right_already_down = True
                 mid = MidiFile('music.mid', clip=True)
-                msg = mido.Message('note_on', note=60, time=0.2)
+                msg = mido.Message('note_on', note=61, time=0.2)
                 port.send(msg)
                 time.sleep(msg.time)
-                port.send(mido.Message('note_off', note=60))
+                port.send(mido.Message('note_off', note=61))
 
             if right_hand.y <= 0.5:
                 right_already_down = False
