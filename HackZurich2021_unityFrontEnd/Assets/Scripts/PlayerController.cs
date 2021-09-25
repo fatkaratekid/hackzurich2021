@@ -6,31 +6,43 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.IO;
+// using Newtonsoft.Json;
 
 public class PlayerController: MonoBehaviour
 {
+#region Initialization
 
-	// 1. Declare Variables
 	Thread receiveThread; //1
 	UdpClient client; //2
 	int port; //3
 
-	// public GameObject Player; //4
-	// AudioSource jumpSound; //5
-	// bool jump; //6
+    public GameObject HandLeft;
+    private string receivedText;
+    private string lastReceivedText;
 
-	// 2. Initialize variables
+    public class BodyCoordinates
+    {
+        public float left_hand_x;
+        public float left_hand_y;
+        public float right_hand_x;
+        public float right_hand_y;
+    }
+    private BodyCoordinates bodyCoordinates;
+
+    private void Awake()
+    {
+        receivedText = "";
+        lastReceivedText = "";
+        bodyCoordinates = new BodyCoordinates();
+    }
+
 	void Start () 
 	{
 		port = 5065; //1 
-		// jump = false; //2 
-		// jumpSound = gameObject.GetComponent<AudioSource>(); //3
 
 		InitUDP(); //4
-        print("start player controller");
 	}
 
-	// 3. InitUDP
 	private void InitUDP()
 	{
 		print ("UDP Initialized");
@@ -40,8 +52,10 @@ public class PlayerController: MonoBehaviour
 		receiveThread.Start (); //3
 
 	}
+#endregion
 
-	// 4. Receive Data
+
+#region data streaming
 	private void ReceiveData()
 	{
 		client = new UdpClient (port); //1
@@ -53,10 +67,8 @@ public class PlayerController: MonoBehaviour
 				byte[] data = client.Receive(ref anyIP); //4
 
 				string text = Encoding.UTF8.GetString(data); //5
-				print (">> " + text);
-                // GetSampleFrame(text);
 
-				// jump = true; //6
+                receivedText = text;
 
 			} catch(Exception e)
 			{
@@ -64,32 +76,55 @@ public class PlayerController: MonoBehaviour
 			}
 		}
 	}
+#endregion
 
 
-    // private void GetSampleFrame(string text)
-    // {
-    //     using (StreamWriter writer = new StreamWriter('sampleFrame.txt'))  
-    //     {  
-    //         writer.WriteLine(text);
-    //     } 
-    // }
-
-	// // 5. Make the Player Jump
-	// public void Jump()
-	// {
-	// 	Player.GetComponent<Animator>().SetTrigger ("Jump"); //1
-	// 	jumpSound.Play(44100); // Play Jump Sound with a 1 second delay to match the animation
-	// }
-
-	// 6. Check for variable value, and make the Player Jump!
 	void Update () 
 	{
-		// if(jump == true)
-		// {
-		// 	// Jump ();
-		// 	// jump = false;
-		// 	print('jump!!')
-		// }
-        print("update player controller");
+        if (receivedText != lastReceivedText)
+        {
+            // HandLeft.transform.position = new Vector3(HandLeft.transform.position.x + 1f,
+            //                                         HandLeft.transform.position.y,
+            //                                         HandLeft.transform.position.z);
+            // print("x position" + HandLeft.transform.position.x);
+            GetCoordinates(receivedText);
+            lastReceivedText = receivedText;
+        }
 	}
+
+#region body control
+
+    private void GetCoordinates(string receivedText)
+    {
+        // JObject coordinates = JObject.Parse(str);
+        string[] coordinates = receivedText.Split(' ');
+        bodyCoordinates.left_hand_x = float.Parse(coordinates[1]);
+        bodyCoordinates.left_hand_y = float.Parse(coordinates[3]);
+        bodyCoordinates.right_hand_x = float.Parse(coordinates[5]);
+        bodyCoordinates.right_hand_y = float.Parse(coordinates[7]);
+        // if ((coordinates[0] == 'left_hand_x') &&
+        //     (coordinates[2] == 'left_hand_y') &&
+        //     (coordinates[4] == 'right_hand_x') &&
+        //     (coordinates[6] == 'right_hand_y'))
+        // {   
+        //     bodyCoordinates.left_hand_x = coordinates[1];
+        //     bodyCoordinates.left_hand_y = coordinates[3];
+        //     bodyCoordinates.right_hand_x = coordinates[5];
+        //     bodyCoordinates.right_hand_y = coordinates[7];
+        // }
+        // else
+        // {
+        //     print("Data structure error.");
+        // }
+        print("left_hand_x: " + bodyCoordinates.left_hand_x);
+
+
+        // JsonUtility.FromJson<MyClass>(json);
+
+    }
+
+    // private void MapCoordinatesToUnityWorld()
+    // {}
+
+#endregion
 }
