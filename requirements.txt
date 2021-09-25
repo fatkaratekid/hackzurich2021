@@ -2,5 +2,4 @@ mido==1.2.10
 python-rtmidi==1.4.9
 opencv-python==4.5.3.56
 mediapipe==0.8.7.3
-numpy==1.14.0
 websocket-client==0.44.0
