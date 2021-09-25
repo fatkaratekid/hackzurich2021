@@ -2,6 +2,11 @@ import cv2
 import mediapipe as mp
 import socket
 import numpy as np
+import mido
+import time
+from mido import MidiFile
+
+port = mido.open_output()
 
 UDP_IP = "127.0.0.1"
 UDP_PORT = 5065
@@ -100,6 +105,11 @@ with mp_pose.Pose(
                 count_kicks += 1
                 print(f'{count_kicks} left hand drum kick!')
                 left_already_down = True
+                mid = MidiFile('music.mid', clip=True)
+                msg = mido.Message('note_on', note=60, time=0.2)
+                port.send(msg)
+                time.sleep(msg.time)
+                port.send(mido.Message('note_off', note=60))
 
             if left_hand.y <= 0.5:
                 left_already_down = False
@@ -108,6 +118,11 @@ with mp_pose.Pose(
                 count_kicks += 1
                 print(f'{count_kicks} right hand drum kick!')
                 right_already_down = True
+                mid = MidiFile('music.mid', clip=True)
+                msg = mido.Message('note_on', note=60, time=0.2)
+                port.send(msg)
+                time.sleep(msg.time)
+                port.send(mido.Message('note_off', note=60))
 
             if right_hand.y <= 0.5:
                 right_already_down = False
