@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -88,6 +89,7 @@ public class PlayerController: MonoBehaviour
             //                                         HandLeft.transform.position.z);
             // print("x position" + HandLeft.transform.position.x);
             GetCoordinates(receivedText);
+            MoveHands();
             lastReceivedText = receivedText;
         }
 	}
@@ -98,33 +100,25 @@ public class PlayerController: MonoBehaviour
     {
         // JObject coordinates = JObject.Parse(str);
         string[] coordinates = receivedText.Split(' ');
-        bodyCoordinates.left_hand_x = float.Parse(coordinates[1]);
-        bodyCoordinates.left_hand_y = float.Parse(coordinates[3]);
-        bodyCoordinates.right_hand_x = float.Parse(coordinates[5]);
-        bodyCoordinates.right_hand_y = float.Parse(coordinates[7]);
-        // if ((coordinates[0] == 'left_hand_x') &&
-        //     (coordinates[2] == 'left_hand_y') &&
-        //     (coordinates[4] == 'right_hand_x') &&
-        //     (coordinates[6] == 'right_hand_y'))
-        // {   
-        //     bodyCoordinates.left_hand_x = coordinates[1];
-        //     bodyCoordinates.left_hand_y = coordinates[3];
-        //     bodyCoordinates.right_hand_x = coordinates[5];
-        //     bodyCoordinates.right_hand_y = coordinates[7];
-        // }
-        // else
-        // {
-        //     print("Data structure error.");
-        // }
-        print("left_hand_x: " + bodyCoordinates.left_hand_x);
+        // TODO: validate incoming data structure
+        float left_hand_x = float.Parse(coordinates[1]);
+        float left_hand_y = float.Parse(coordinates[3]);
+        float right_hand_x = float.Parse(coordinates[5]);
+        float right_hand_y = float.Parse(coordinates[7]);
+        print("raw left_hand_x: " + left_hand_x);
 
-
-        // JsonUtility.FromJson<MyClass>(json);
+        bodyCoordinates.left_hand_x = Screen.width * left_hand_x;
+        bodyCoordinates.left_hand_y = Screen.height * left_hand_y;
+        print("converted left_hand_x: " +  bodyCoordinates.left_hand_x);
 
     }
 
-    // private void MapCoordinatesToUnityWorld()
-    // {}
+    private void MoveHands()
+    {
+        HandLeft.transform.position = new Vector3(bodyCoordinates.left_hand_x, 
+                                                BodyCoordinates.left_hand_y, 
+                                                HandLeft.transform.position.z);
+    }
 
 #endregion
 }
