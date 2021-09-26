@@ -59,7 +59,6 @@ with mp_pose.Pose( #with = try catch, put in context, automatically handles
         mp_drawing.plot_landmarks(
             results.pose_world_landmarks, mp_pose.POSE_CONNECTIONS)
 
-left_already_down = False
 right_already_down = False
 count_kicks = 0
 # For webcam input:
